@@ -1,0 +1,32 @@
+# Streamlit app
+streamlit
+
+# MongoDB connection
+pymongo
+dnspython
+python-dotenv
+
+# Excel handling
+openpyxl
+pandas
+xlrd
+
+# Telegram bot
+requests
+
+# For date/time parsing
+python-dateutil
+
+# Selenium (if downloading data via automation)
+selenium
+webdriver-manager
+
+# Logging
+loguru
+
+# Optional: For rich terminal outputs or debugging
+tqdm
+
+torch   # (CPU is fine; omit version to auto-resolve for your OS)
+pandas
+python-dotenv

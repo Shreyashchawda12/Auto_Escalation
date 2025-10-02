@@ -56,30 +56,31 @@ autocall/
 │── requirements.txt
 │── README.md
 
+
 ⚙️ Setup
-1. Clone & Install
+## 1. Clone & Install
 git clone <repo-url>
 cd autocall
 pip install -r requirements.txt
 
-2. Configure Environment
+## 2. Configure Environment
 
 Create a .env file in the root:
 
-## MongoDB
+### MongoDB
 MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net
 MONGO_DB=TELCOM_AI
 
-## Telegram Bot
+### Telegram Bot
 BOT_TOKEN=123456789:ABC-YourBotToken
 TEST_MODE=True
 TEST_CHAT_ID=6048553594
 
-## VNOC login (only if auto-download is used later)
-VNOC_USERNAME=your_username
-VNOC_PASSWORD=your_password
+### VNOC login (only if auto-download is used later)
+* VNOC_USERNAME=your_username
+* VNOC_PASSWORD=your_password
 
-3. Prepare Data
+## 3. Prepare Data
 
 Place site escalation mapping file in:
 data/mapping/site_escalation_mapping.xlsx
@@ -92,9 +93,9 @@ For manual download, place your VNOC-exported file in data/raw/.
 ▶️ Run the Dashboard
 streamlit run app.py
 
-🚀 Usage Flow
+## 🚀 Usage Flow
 
-Select Input Mode
+### Select Input Mode
 
 📤 Manual Upload → Upload alarm file.
 
