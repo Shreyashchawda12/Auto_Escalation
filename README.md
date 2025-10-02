@@ -5,35 +5,36 @@ It handles downloading or manually uploading alarm logs, preprocessing them, sto
 
 📌 Features
 
-Manual Alarm Log Input
+* Manual Alarm Log Input
 
-Upload alarm files (.xlsx / .csv) manually in the dashboard.
+* Upload alarm files (.xlsx / .csv) manually in the dashboard.
 
-Or place VNOC-downloaded logs in the data/raw/ folder.
+* Or place VNOC-downloaded logs in the data/raw/ folder.
 
-Preprocessing
+* Preprocessing
 
-Cleans and normalizes alarm logs.
+* Cleans and normalizes alarm logs.
 
-Stores processed alarms in data/processed/cleaned_alarms.csv.
+* Stores processed alarms in data/processed/cleaned_alarms.csv.
 
-MongoDB Integration
+* MongoDB Integration
 
-Uploads alarm data into MongoDB for long-term storage and analysis.
+* Uploads alarm data into MongoDB for long-term storage and analysis.
 
-Telegram Escalation
+* Telegram Escalation
 
-Sends alarm notifications to Technicians, Supervisors, and Cluster Engineers.
+* Sends alarm notifications to Technicians, Supervisors, and Cluster Engineers.
 
-CE escalation is triggered only for 2G/3G/4G outage alarms.
+* CE escalation is triggered only for 2G/3G/4G outage alarms.
 
-Supports test mode (all messages go to your test chat ID).
+* Supports test mode (all messages go to your test chat ID).
 
-Streamlit Dashboard
+* Streamlit Dashboard
 
-Simple UI for selecting input mode, preprocessing, uploading, and triggering escalation.
+* Simple UI for selecting input mode, preprocessing, uploading, and triggering escalation.
 
-📂 Project Structure
+# 📂 Project Structure
+
 autocall/
 │── app.py                         # Streamlit dashboard
 │── automation/
@@ -65,16 +66,16 @@ pip install -r requirements.txt
 
 Create a .env file in the root:
 
-# MongoDB
+## MongoDB
 MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net
 MONGO_DB=TELCOM_AI
 
-# Telegram Bot
+## Telegram Bot
 BOT_TOKEN=123456789:ABC-YourBotToken
 TEST_MODE=True
 TEST_CHAT_ID=6048553594
 
-# VNOC login (only if auto-download is used later)
+## VNOC login (only if auto-download is used later)
 VNOC_USERNAME=your_username
 VNOC_PASSWORD=your_password
 
