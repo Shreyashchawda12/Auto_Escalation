@@ -8,17 +8,24 @@ import pandas as pd
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from utils.preprocessor import load_and_preprocess_alarm_file
-from telegram_bot.escalate_alarms import escalate_alarms   # ✅ updated
+from telegram_bot.escalate_alarms import escalate_alarms
 from mongodb.mongo_crud import insert_bulk_alarms
 from automation.download_and_preprocess import get_latest_downloaded_file, clear_download_folder
 from utils.mongo_utils import df_to_dicts
 
+# -------------------
 # Constants
+# -------------------
 DOWNLOAD_DIR = os.path.abspath("data/raw")
 PROCESSED_OUTPUT = "data/processed/cleaned_alarms.csv"
 COLLECTION_NAME = "AlarmLogs"
 
-# UI
+# ✅ Ensure source_file always exists
+source_file = None  
+
+# -------------------
+# Streamlit UI
+# -------------------
 st.title("🚨 Alarm Automation Dashboard")
 
 mode = st.radio("Choose Input Mode", ["🖐 Manual Download (VNOC)", "📤 Manual Upload"])
@@ -28,17 +35,17 @@ if mode == "📤 Manual Upload":
     uploaded_file = st.file_uploader("Upload Alarm Log File", type=["xlsx", "csv"])
     if uploaded_file is not None:
         uploaded_path = os.path.join(DOWNLOAD_DIR, uploaded_file.name)
+        os.makedirs(DOWNLOAD_DIR, exist_ok=True)
         with open(uploaded_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
         st.success(f"📂 Uploaded file saved: {uploaded_file.name}")
         source_file = uploaded_path
-    else:
-        source_file = None
+
+# --- Manual Download Mode ---
 else:
-    # --- Manual Download Mode ---
     st.info("👉 Please manually download the alarm log file from VNOC into `data/raw` folder.")
     if st.button("🔄 Check for New File"):
-        clear_download_folder(DOWNLOAD_DIR)  # wipe old files
+        clear_download_folder(DOWNLOAD_DIR)  # wipe old files before checking
         latest_file = get_latest_downloaded_file(DOWNLOAD_DIR)
         if latest_file:
             st.success(f"✅ Found downloaded file: {os.path.basename(latest_file)}")
@@ -47,7 +54,9 @@ else:
             st.error("❌ No new Excel file found in raw folder.")
             source_file = None
 
-# --- Preprocess & Upload ---
+# -------------------
+# Preprocess & Upload
+# -------------------
 if st.button("⚙️ Preprocess & Upload to MongoDB"):
     if source_file:
         try:
@@ -60,12 +69,14 @@ if st.button("⚙️ Preprocess & Upload to MongoDB"):
         except Exception as e:
             st.error(f"❌ Error during processing: {e}")
     else:
-        st.warning("⚠️ No file selected or detected.")
+        st.warning("⚠️ No file selected or detected. Please upload or place a raw file first.")
 
-# --- Escalation ---
+# -------------------
+# Escalation
+# -------------------
 if st.button("📣 Escalate Alarms via Telegram"):
     try:
-        escalate_alarms()   # ✅ no arguments now
+        escalate_alarms()   # ✅ No arguments required
         st.success("📢 Telegram alarm escalation completed.")
     except Exception as e:
         st.error(f"❌ Escalation failed: {e}")
