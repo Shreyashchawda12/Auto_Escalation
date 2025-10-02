@@ -35,44 +35,7 @@ It handles downloading or manually uploading alarm logs, preprocessing them, sto
 
 ## 📂 Project Structure
 
-autocall/
-│── app.py # Streamlit dashboard
-
-│── automation/
-
-│ └── download_and_preprocess.py # Helpers for manual download
-
-│── data/
-
-│ ├── raw/ # VNOC raw files (manual download here)
-
-│ ├── processed/ # Cleaned alarms
-
-│ └── mapping/ # Site escalation mapping file
-
-│── mongodb/
-
-│ └── mongo_crud.py # MongoDB helpers
-
-│── telegram_bot/
-
-│ ├── escalate_alarms.py # Main escalation logic
-
-│ └── telegram_utils.py # Telegram helpers
-
-│── utils/
-
-│ ├── config.py # Global config (paths, tokens, test mode)
-
-│ ├── mongo_utils.py # DataFrame → Mongo helpers
-
-│ └── preprocessor.py # File cleaning logic
-
-│── .env # Secrets (Mongo, Telegram, VNOC login)
-
-│── requirements.txt
-
-│── README.md
+![alt text](image-1.png)
 
 ⚙️ Setup
 ## 1. Clone & Install
